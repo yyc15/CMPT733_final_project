@@ -54,5 +54,4 @@ def getCategoryDf(regionCode='US'):
     })
     return df
 
-if __name__ == "__main__":
-    print(getCategoryDf('US'))
+    

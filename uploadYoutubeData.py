@@ -1,0 +1,122 @@
+import os
+import json
+import pickle
+import requests
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from googleapiclient.http import MediaFileUpload
+
+CLIENT_SECRET_FILE ='OAuth/google_drive_client_secret.json'
+SCOPES = ['https://www.googleapis.com/auth/drive']
+
+
+def auth():
+    creds = None
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+    global service, access_token
+    service = build('drive', 'v3', credentials=creds)
+    access_token = creds.token
+
+def uploadFile(dataType, filename, PARENTS):
+    if dataType == "api":
+        filepath = os.path.join('data/',filename)
+
+    elif dataType =="tableau":
+        filepath = os.path.join('Tableau_Workbook/data/',filename)
+    
+    else:
+        filepath = os.path.join('data/',filename)
+    
+    print("Uploading", filepath , "...")
+    filesize = os.path.getsize(filepath)
+
+    headers = {"Authorization": "Bearer " + access_token, "Content-Type": "application/json"}
+    params = {
+        "name": filename,
+        "mimeType": "text/csv",
+        "parents": PARENTS
+    }
+    r = requests.post(
+        "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable",
+        headers=headers,
+        data=json.dumps(params)
+    )
+    location = r.headers['Location']
+
+    headers = {"Content-Range": "bytes 0-" + str(filesize - 1) + "/" + str(filesize)}
+    r = requests.put(
+        location,
+        headers=headers,
+        data=open(filepath, 'rb')
+    )
+    print(r.text)
+    print(filename, "is uploaded")
+
+
+    
+
+def getDriveFile(N, PARENTS):
+
+    resource = service.files()
+    result = resource.list(
+                q="'" + PARENTS[0] + "' in parents",
+                pageSize=N, 
+                fields="files(id, name)",
+            ).execute()
+    
+    return result
+
+
+def uploadDataToDrive(dataType):
+    auth()
+
+    if dataType == "api":
+        file_path = 'data/'
+        PARENTS = ['1RQmzkSvg_2lg9aVeKgRjItwskjK2O8if'] # the folder for the files to upload
+
+    elif dataType =="tableau":
+        file_path = 'Tableau_Workbook/data/'
+        PARENTS = ['1rP76HfShVhHARWH8lXcQFDeFPpQEc5Mm'] # the folder for the files to upload
+    
+    else:
+        file_path = 'data/'
+        PARENTS = ['1RQmzkSvg_2lg9aVeKgRjItwskjK2O8if'] # the folder for the files to upload
+    
+    csv_files = os.listdir(file_path)
+    result_dict = getDriveFile(5, PARENTS)
+    file_list = result_dict.get('files')
+    print("The files in local data folder", csv_files)
+
+    if len(file_list)>0:
+        print("The files in google drive folder", file_list)
+        print("Update files in google drive folder...")
+        for file in file_list:
+            if file['name'] != '.DS_Store':
+                media = MediaFileUpload(filename=file_path + file['name'] , mimetype='text/csv')
+        
+                response = service.files().update(
+                    fileId = file['id'],
+                    media_body = media
+                ).execute()
+        print("Files are updated.")
+    else:
+        for csv_file in csv_files:
+            if csv_file != '.DS_Store' and csv_file !='today_data':
+                uploadFile(dataType ,csv_file, PARENTS)
+
+# available functions:
+# uploadDataToDrive("tableau")
+# uploadDataToDrive("api")

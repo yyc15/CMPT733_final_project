@@ -10,8 +10,8 @@ import os
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
-pd.set_option('display.width', 1000)
-pd.set_option('display.max_colwidth', None)
+pd.set_option('display.width', 50)
+pd.set_option('display.max_colwidth', 50)
 
 # extract category and corresponding id out of json file
 def extract_catid_js(jsfile):
@@ -87,5 +87,5 @@ def integrate_clean_data():
 
     return df
 
-df = integrate_clean_data()
-print(df.head(3))
+# df = integrate_clean_data()
+# print(df.head(3))

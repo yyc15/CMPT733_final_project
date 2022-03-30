@@ -37,7 +37,7 @@ explain_handler.setFormatter(
 def from_bytes(
     sequences: bytes,
     steps: int = 5,
-    chunk_size: int = 512,
+    chunk_size: int = 256,
     threshold: float = 0.2,
     cp_isolation: List[str] = None,
     cp_exclusion: List[str] = None,

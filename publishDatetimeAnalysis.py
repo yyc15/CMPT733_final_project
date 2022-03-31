@@ -59,12 +59,14 @@ def analysis():
     df = df.sort_values(by=['trending_date'], ascending=True)
     df['published_weekday'] = df['publishDate'].apply(lambda x: getWeekdayTxt(x))
     df['published_hour'] = pd.to_datetime(df['publishTime'], format='%H:%M:%S').dt.strftime('%I %p')
+    df['publishDate'] = pd.to_datetime(df['publishDate']) 
+    df["published_weekday_hour"] = df["published_weekday"].astype(str)+ " " + df["published_hour"].astype(str)
+    df['day_for_publish_to_trendning'] = df['trending_date'] - df['publishDate']
     df.to_csv(r'Tableau_Workbook/data/publishedAt_EDA.csv')
-    us_df = df[(df['country']=='US')]
-    gb_df = df[(df['country']=='GB')]
-    ca_df = df[(df['country']=='CA')]
+
 
     df_unique_id = df.drop_duplicates(subset=['video_id'], keep='first')
+    df_unique_id.to_csv(r'Tableau_Workbook/data/publishedAt_unique_EDA.csv')
 
     #publish day of week related on trending videos list
     weekday_us_df =  df_unique_id[['video_id','published_weekday','country']].groupby(['country','published_weekday'], as_index=False).count()

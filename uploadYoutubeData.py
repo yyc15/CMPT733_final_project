@@ -115,7 +115,7 @@ def uploadDataToDrive(dataType):
         PARENTS = ['1RQmzkSvg_2lg9aVeKgRjItwskjK2O8if'] # the folder for the files to upload
     
     csv_files = os.listdir(file_path)
-    result_dict = getDriveFile(5, PARENTS)
+    result_dict = getDriveFile(50, PARENTS)
     file_list = result_dict.get('files')
     print("The files in local data folder", csv_files)
 

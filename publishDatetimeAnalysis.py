@@ -69,34 +69,34 @@ def analysis():
     df_unique_id.to_csv(r'Tableau_Workbook/data/publishedAt_unique_EDA.csv')
 
     #publish day of week related on trending videos list
-    weekday_us_df =  df_unique_id[['video_id','published_weekday','country']].groupby(['country','published_weekday'], as_index=False).count()
-    weekday_us_df['published_weekday']=pd.Categorical(weekday_us_df['published_weekday'], ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"])
-    weekday_us_df = weekday_us_df.sort_values('published_weekday')
-    weekday_us_trending_graph = weekday_us_df.plot.bar(x='published_weekday', y='video_id', figsize=(15,5), title='Number Of Trending Video Published Day of Week', alpha=0.5)    
+    weekday_df =  df_unique_id[['video_id','published_weekday','country']].groupby(['country','published_weekday'], as_index=False).count()
+    weekday_df['published_weekday']=pd.Categorical(weekday_df['published_weekday'], ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"])
+    weekday_df = weekday_df.sort_values('published_weekday')
+    #weekday_trending_graph = weekday_df.plot.bar(x='published_weekday', y='video_id', figsize=(15,5), title='Number Of Trending Video Published Day of Week', alpha=0.5)    
 
     #publish hour  related on trending videos list
-    hour_us_df =  df_unique_id[['video_id','published_hour','country']].groupby(['country','published_hour'], as_index=False).count()
-    hour_us_df['published_hour']=pd.Categorical(hour_us_df['published_hour'], ["12 AM", "01 AM", "02 AM","03 AM","04 AM","05 AM","06 AM","07 AM","08 AM","09 AM","10 AM","11 AM",
+    hour_df =  df_unique_id[['video_id','published_hour','country']].groupby(['country','published_hour'], as_index=False).count()
+    hour_df['published_hour']=pd.Categorical(hour_df['published_hour'], ["12 AM", "01 AM", "02 AM","03 AM","04 AM","05 AM","06 AM","07 AM","08 AM","09 AM","10 AM","11 AM",
                                                                                 "12 PM", "01 PM", "02 PM","03 PM","04 PM","05 PM","06 PM","07 PM","08 PM","09 PM","10 PM","11 PM"])
-    hour_us_df = hour_us_df.sort_values('published_hour')
-    hour_us_trending_graph = hour_us_df.plot.bar(x='published_hour', y='video_id', figsize=(15,5), title='Number Of Trending Video Published Hour', alpha=0.5)      
+    hour_df = hour_df.sort_values('published_hour')
+    #hour_trending_graph = hour_df.plot.bar(x='published_hour', y='video_id', figsize=(15,5), title='Number Of Trending Video Published Hour', alpha=0.5)      
 
     #publish day of week and hour related on trending videos list
-    weekday_hour_us_df = df_unique_id[['video_id','published_weekday','published_hour','country']].groupby(['country','published_weekday','published_hour'], as_index=False).count()
-    weekday_hour_us_df['published_weekday']=pd.Categorical(weekday_hour_us_df['published_weekday'], ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"])
-    weekday_hour_us_df['published_hour']=pd.Categorical(weekday_hour_us_df['published_hour'], ["12 AM", "01 AM", "02 AM","03 AM","04 AM","05 AM","06 AM","07 AM","08 AM","09 AM","10 AM","11 AM",
+    weekday_hour_df = df_unique_id[['video_id','published_weekday','published_hour','country']].groupby(['country','published_weekday','published_hour'], as_index=False).count()
+    weekday_hour_df['published_weekday']=pd.Categorical(weekday_hour_df['published_weekday'], ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"])
+    weekday_hour_df['published_hour']=pd.Categorical(weekday_hour_df['published_hour'], ["12 AM", "01 AM", "02 AM","03 AM","04 AM","05 AM","06 AM","07 AM","08 AM","09 AM","10 AM","11 AM",
                                                                                                     "12 PM", "01 PM", "02 PM","03 PM","04 PM","05 PM","06 PM","07 PM","08 PM","09 PM","10 PM","11 PM"])
-    weekday_hour_us_df = weekday_hour_us_df.sort_values(['published_weekday','published_hour'])
-    weekday_hour_us_df["published_weekday_hour"] = weekday_hour_us_df["published_weekday"].astype(str)+ " " + weekday_hour_us_df["published_hour"].astype(str)
-    weekday_hour_us_trending_graph = weekday_hour_us_df.plot.bar(x='published_weekday_hour', y='video_id', figsize=(40,10), title='Number Of Trending Video Published Weekday & Hour', alpha=0.5)  
-    weekday_hour_us_df.to_csv(r'Tableau_Workbook/data/weekday_hour_df.csv')
+    weekday_hour_df = weekday_hour_df.sort_values(['published_weekday','published_hour'])
+    weekday_hour_df["published_weekday_hour"] = weekday_hour_df["published_weekday"].astype(str)+ " " + weekday_hour_df["published_hour"].astype(str)
+    #weekday_hour_trending_graph = weekday_hour_df.plot.bar(x='published_weekday_hour', y='video_id', figsize=(40,10), title='Number Of Trending Video Published Weekday & Hour', alpha=0.5)  
+    weekday_hour_df.to_csv(r'Tableau_Workbook/data/weekday_hour_df.csv')
 
     #top 10 publish day of week and hour related on trending videos list
-    weekday_hour_us_df = weekday_hour_us_df.sort_values('video_id', ascending=False)
-    top_10_weekday_hour_us_df = weekday_hour_us_df.head(10)
-    top_10_weekday_hour_us_trending_graph = top_10_weekday_hour_us_df.plot.bar(x='published_weekday_hour', y='video_id', figsize=(15,5), title='Top 10 Published Weekday & Hour of Trending Videos', alpha=0.5)  
+    weekday_hour_df = weekday_hour_df.sort_values('video_id', ascending=False)
+    top_10_weekday_hour_df = weekday_hour_df.head(10)
+    #top_10_weekday_hour_trending_graph = top_10_weekday_hour_df.plot.bar(x='published_weekday_hour', y='video_id', figsize=(15,5), title='Top 10 Published Weekday & Hour of Trending Videos', alpha=0.5)  
 
-    weekday_hour_us_df = weekday_hour_us_df.sort_values(['published_weekday','published_hour'])
+    weekday_hour_df = weekday_hour_df.sort_values(['published_weekday','published_hour'])
 
     df_unique_id['published_weekday']=pd.Categorical(df_unique_id['published_weekday'], ["Monday", "Tuesday", "Wednesday","Thursday","Friday","Saturday","Sunday"])
     df_unique_id['published_hour']=pd.Categorical(df_unique_id['published_hour'], ["12 AM", "01 AM", "02 AM","03 AM","04 AM","05 AM","06 AM","07 AM","08 AM","09 AM","10 AM","11 AM",
@@ -104,6 +104,15 @@ def analysis():
     df_unique_id = df_unique_id.sort_values(['published_weekday','published_hour'])
     df_unique_id["published_weekday_hour"] = df_unique_id["published_weekday"].astype(str)+ " " + df_unique_id["published_hour"].astype(str)
 
+    
+    #correlation break 3 countries and combine
+    us_corr_df = getCorrDf('US', df_unique_id, weekday_hour_df)
+    gb_corr_df = getCorrDf('GB', df_unique_id, weekday_hour_df)
+    ca_corr_df = getCorrDf('CA', df_unique_id, weekday_hour_df)
+    
+    corr_df = pd.concat([us_corr_df, gb_corr_df, ca_corr_df])
+
+    """
     view_corr = df_unique_id['published_weekday_hour'].str.get_dummies().corrwith(df_unique_id['view_count']/df_unique_id['view_count'].max())
     view_corr_df = pd.DataFrame(view_corr, columns=['view_corr'])
     view_corr_df = view_corr_df.reset_index()
@@ -116,12 +125,34 @@ def analysis():
     like_corr_df = like_corr_df.reset_index()
     like_corr_df = like_corr_df.rename(columns={"index": "published_weekday_hour"})
     #display(like_corr_df)
+    
 
-
-    publishedAt_corr_us_df = weekday_hour_us_df.merge(view_corr_df, how = 'inner', on = ['published_weekday_hour'])
-    publishedAt_corr_us_df = publishedAt_corr_us_df.merge(like_corr_df, how = 'inner', on = ['published_weekday_hour'])
-    #display(publishedAt_corr_us_df)
-    publishedAt_corr_us_df.to_csv(r'Tableau_Workbook/data/publishedAt_corr_df.csv')
+    publishedAt_corr_df = weekday_hour_df.merge(view_corr_df, how = 'inner', on = ['published_weekday_hour'])
+    publishedAt_corr_df = publishedAt_corr_df.merge(like_corr_df, how = 'inner', on = ['published_weekday_hour'])
+    #display(publishedAt_corr_df)
+    """
+    
+    corr_df.to_csv(r'Tableau_Workbook/data/publishedAt_corr_df.csv')
 
     upload.uploadDataToDrive("tableau")
 
+def getCorrDf(country, df, df_merge):
+    
+    country_df = df.loc[df['country']==country]
+    country_df_merge = df_merge.loc[df_merge['country']==country]
+
+    view_corr = country_df['published_weekday_hour'].str.get_dummies().corrwith(country_df['view_count']/country_df['view_count'].max())
+    view_corr_df = pd.DataFrame(view_corr, columns=['view_corr'])
+    view_corr_df = view_corr_df.reset_index()
+    view_corr_df = view_corr_df.rename(columns={"index": "published_weekday_hour"})
+
+
+    like_corr = country_df['published_weekday_hour'].str.get_dummies().corrwith(country_df['likes']/country_df['likes'].max())
+    like_corr_df = pd.DataFrame(like_corr, columns=['like_corr'])
+    like_corr_df = like_corr_df.reset_index()
+    like_corr_df = like_corr_df.rename(columns={"index": "published_weekday_hour"})
+
+    corr_df = country_df_merge.merge(view_corr_df, how = 'inner', on = ['published_weekday_hour'])
+    result_df = corr_df.merge(like_corr_df, how = 'inner', on = ['published_weekday_hour'])
+    
+    return result_df

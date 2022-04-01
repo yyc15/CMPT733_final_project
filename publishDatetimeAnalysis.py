@@ -111,7 +111,7 @@ def analysis():
     ca_corr_df = getCorrMatrix('CA', df_unique_id)
 
     corr_df = pd.concat([us_corr_df, gb_corr_df, ca_corr_df])
-    corr_df = corr_df.reset_index(inplace=False)
+    corr_df = corr_df.reset_index(drop=True)
 
 
     publishedAt_us_corr_df = getCorrDf('US', df_unique_id, weekday_hour_df)
@@ -170,7 +170,8 @@ def getCorrMatrix(country, df):
     country_df = df.loc[df['country']==country]
     country_df = country_df[['likes','view_count','comment_count']]
     df_corr = country_df.corr(method ='pearson')
-    result_df = df_corr.stack()
+    result_df = df_corr.stack().reset_index()
     result_df.columns = ['correlation_factor1','correlation_factor2','correlation']
-
+    result_df['country'] = country
+    result_df = result_df.reset_index(drop=True)
     return result_df

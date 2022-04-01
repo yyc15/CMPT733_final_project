@@ -106,12 +106,20 @@ def analysis():
 
     
     #correlation break 3 countries and combine
-    us_corr_df = getCorrDf('US', df_unique_id, weekday_hour_df)
-    gb_corr_df = getCorrDf('GB', df_unique_id, weekday_hour_df)
-    ca_corr_df = getCorrDf('CA', df_unique_id, weekday_hour_df)
-    
-    corr_df = pd.concat([us_corr_df, gb_corr_df, ca_corr_df])
+    us_corr_df = getCorrMatrix('US', df_unique_id)
+    gb_corr_df = getCorrMatrix('GB', df_unique_id)
+    ca_corr_df = getCorrMatrix('CA', df_unique_id)
 
+    corr_df = pd.concat([us_corr_df, gb_corr_df, ca_corr_df])
+    corr_df = corr_df.reset_index(inplace=False)
+
+
+    publishedAt_us_corr_df = getCorrDf('US', df_unique_id, weekday_hour_df)
+    publishedAt_gb_corr_df = getCorrDf('GB', df_unique_id, weekday_hour_df)
+    publishedAt_ca_corr_df = getCorrDf('CA', df_unique_id, weekday_hour_df)
+
+    publishedAt_corr_df = pd.concat([publishedAt_us_corr_df, publishedAt_gb_corr_df, publishedAt_ca_corr_df])
+    publishedAt_corr_df = publishedAt_corr_df.reset_index(inplace=False)
     """
     view_corr = df_unique_id['published_weekday_hour'].str.get_dummies().corrwith(df_unique_id['view_count']/df_unique_id['view_count'].max())
     view_corr_df = pd.DataFrame(view_corr, columns=['view_corr'])
@@ -131,9 +139,9 @@ def analysis():
     publishedAt_corr_df = publishedAt_corr_df.merge(like_corr_df, how = 'inner', on = ['published_weekday_hour'])
     #display(publishedAt_corr_df)
     """
+    corr_df.to_csv(r'Tableau_Workbook/data/corr_df.csv')
+    publishedAt_corr_df.to_csv(r'Tableau_Workbook/data/publishedAt_corr_df.csv')
     
-    corr_df.to_csv(r'Tableau_Workbook/data/publishedAt_corr_df.csv')
-
     upload.uploadDataToDrive("tableau")
 
 def getCorrDf(country, df, df_merge):
@@ -155,4 +163,14 @@ def getCorrDf(country, df, df_merge):
     corr_df = country_df_merge.merge(view_corr_df, how = 'inner', on = ['published_weekday_hour'])
     result_df = corr_df.merge(like_corr_df, how = 'inner', on = ['published_weekday_hour'])
     
+    return result_df
+
+
+def getCorrMatrix(country, df):
+    country_df = df.loc[df['country']==country]
+    country_df = country_df[['likes','view_count','comment_count']]
+    df_corr = country_df.corr(method ='pearson')
+    result_df = df_corr.stack()
+    result_df.columns = ['correlation_factor1','correlation_factor2','correlation']
+
     return result_df

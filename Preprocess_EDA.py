@@ -1,3 +1,6 @@
+from Download_Data import *
+downloadData()
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,6 +89,3 @@ def integrate_clean_data():
     df['tags_lst'] = df['tags'].str.strip(' *#\'\",$@!\n\t').str.split(pat="|")
 
     return df
-
-# df = integrate_clean_data()
-# print(df.head(3))

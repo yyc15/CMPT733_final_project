@@ -65,7 +65,7 @@ def analysis():
     df.to_csv(r'Tableau_Workbook/data/publishedAt_EDA.csv')
 
 
-    df_unique_id = df.drop_duplicates(subset=['video_id'], keep='first')
+    df_unique_id = df.drop_duplicates(subset=['video_id', 'country'], keep='first')
     df_unique_id.to_csv(r'Tableau_Workbook/data/publishedAt_unique_EDA.csv')
 
     #publish day of week related on trending videos list

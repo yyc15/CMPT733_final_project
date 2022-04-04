@@ -1,5 +1,7 @@
 from math import gcd
 import os
+import os.path
+from os import path
 import json
 import pickle
 import requests
@@ -145,11 +147,36 @@ def uploadDataToDrive(dataType):
         print("Files are updated.")
     else:
         for csv_file in csv_files:
-            if csv_file != '.DS_Store' and csv_file !='today_data':
+            if csv_file != '.DS_Store' and csv_file !='today_data' and csv_file !='fileList':
                 uploadFile(dataType ,csv_file, PARENTS, FILE_ID="")
+    
+    fretchFileList()
+
+def fretchFileList():
+    auth()
+    print('Fretching data list from drive...')
+    writeFileListJson(['1RQmzkSvg_2lg9aVeKgRjItwskjK2O8if'], "data/fileList")
+    writeFileListJson(['1rP76HfShVhHARWH8lXcQFDeFPpQEc5Mm'], "Tableau_Workbook/data/fileList")
+    print('Fretching data completed.')
+
+def writeFileListJson(driveFolderId, folderLocation):
+    result = getDriveFile(50, driveFolderId)
+    fileList = result.get('files')
+    filedict = {}
+    for file in fileList:
+        fileId=file['id']
+        filename = file['name']
+        filedict[filename] = fileId
+
+    if path.isdir(folderLocation) == False:
+            os.mkdir(folderLocation)
+
+    with open(folderLocation + "/fileDict.json", "w") as outfile:
+        json.dump(filedict, outfile)
 
 
 
 # available functions:
+# fretchFileList()
 # uploadDataToDrive("tableau")
 # uploadDataToDrive("api")

@@ -25,8 +25,8 @@ def downloadType(folderLocation):
     with open(folderLocation + 'fileList/fileDict.json') as json_file:
         csvDataDict = json.load(json_file)
     
-    if path.isdir("folderLocation") == False:
-        os.mkdir("folderLocation")
+    if path.isdir(folderLocation) == False:
+        os.mkdir(folderLocation)
 
     for fileName, fileId in csvDataDict.items():
         url = 'https://drive.google.com/u/2/uc?id='+fileId+'&export=download&confirm=t'

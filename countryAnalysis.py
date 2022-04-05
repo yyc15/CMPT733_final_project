@@ -120,6 +120,8 @@ def analysis():
     prepare_title_data_Tableau(csv_name='title_tags_ca_df', tableau_df_name='CA_title_df')
     prepare_title_data_Tableau(csv_name='title_tags_gb_df', tableau_df_name='GB_title_df')
 
-    prepare_title_data_Tableau(csv_name='title_tags_us_df', tableau_df_name='US_tags_df')
-    prepare_title_data_Tableau(csv_name='title_tags_ca_df', tableau_df_name='CA_tags_df')
-    prepare_title_data_Tableau(csv_name='title_tags_gb_df', tableau_df_name='GB_tags_df')
+    prepare_tag_data_Tableau(csv_name='title_tags_us_df', tableau_df_name='US_tags_df')
+    prepare_tag_data_Tableau(csv_name='title_tags_ca_df', tableau_df_name='CA_tags_df')
+    prepare_tag_data_Tableau(csv_name='title_tags_gb_df', tableau_df_name='GB_tags_df')
+
+    upload.uploadDataToDrive('tableau')

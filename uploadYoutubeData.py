@@ -1,4 +1,7 @@
+from math import gcd
 import os
+import os.path
+from os import path
 import json
 import pickle
 import requests
@@ -6,9 +9,11 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.http import MediaFileUpload
+import gspread
+
 
 CLIENT_SECRET_FILE ='OAuth/google_drive_client_secret.json'
-SCOPES = ['https://www.googleapis.com/auth/drive']
+SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets']
 
 
 def auth():
@@ -26,11 +31,13 @@ def auth():
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
-    global service, access_token
+    global service, access_token, gc
     service = build('drive', 'v3', credentials=creds)
     access_token = creds.token
+    gc = gspread.authorize(creds)
 
-def uploadFile(dataType, filename, PARENTS):
+def uploadFile(dataType, filename, PARENTS, FILE_ID):
+
     if dataType == "api":
         filepath = os.path.join('data/',filename)
 
@@ -44,16 +51,30 @@ def uploadFile(dataType, filename, PARENTS):
     filesize = os.path.getsize(filepath)
 
     headers = {"Authorization": "Bearer " + access_token, "Content-Type": "application/json"}
-    params = {
-        "name": filename,
-        "mimeType": "text/csv",
-        "parents": PARENTS
-    }
-    r = requests.post(
-        "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable",
-        headers=headers,
-        data=json.dumps(params)
-    )
+    
+    if FILE_ID =="":
+        params = {
+            "name": filename,
+            "mimeType": "text/csv",
+            "parents": PARENTS
+        }   
+        r = requests.post(
+            "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable",
+            headers=headers,
+            data=json.dumps(params)
+        )
+    else:
+        params = {
+            "name": filename,
+            "mimeType": "text/csv",
+        }
+        r = requests.patch(
+            "https://www.googleapis.com/upload/drive/v3/files/"+FILE_ID+"?uploadType=resumable",
+            headers=headers,
+            data=json.dumps(params)
+        )
+    #print(r)
+
     location = r.headers['Location']
 
     headers = {"Content-Range": "bytes 0-" + str(filesize - 1) + "/" + str(filesize)}
@@ -96,27 +117,66 @@ def uploadDataToDrive(dataType):
         PARENTS = ['1RQmzkSvg_2lg9aVeKgRjItwskjK2O8if'] # the folder for the files to upload
     
     csv_files = os.listdir(file_path)
-    result_dict = getDriveFile(5, PARENTS)
+    result_dict = getDriveFile(50, PARENTS)
     file_list = result_dict.get('files')
     print("The files in local data folder", csv_files)
 
     if len(file_list)>0:
         print("The files in google drive folder", file_list)
         print("Update files in google drive folder...")
+        
+        fileIdlist = []
+        for file in file_list:
+            fileIdlist.append(file['id'])
+
         for file in file_list:
             if file['name'] != '.DS_Store':
+                """
                 media = MediaFileUpload(filename=file_path + file['name'] , mimetype='text/csv')
         
                 response = service.files().update(
                     fileId = file['id'],
                     media_body = media
                 ).execute()
+                
+                """
+                fileId=file['id']
+                filename = file['name']
+                print("fileId:", fileId)
+                uploadFile(dataType ,filename, PARENTS, FILE_ID=fileId)
         print("Files are updated.")
     else:
         for csv_file in csv_files:
-            if csv_file != '.DS_Store' and csv_file !='today_data':
-                uploadFile(dataType ,csv_file, PARENTS)
+            if csv_file != '.DS_Store' and csv_file !='today_data' and csv_file !='fileList':
+                uploadFile(dataType ,csv_file, PARENTS, FILE_ID="")
+    
+    fretchFileList()
+
+def fretchFileList():
+    auth()
+    print('Fretching data list from drive...')
+    writeFileListJson(['1RQmzkSvg_2lg9aVeKgRjItwskjK2O8if'], "data/fileList")
+    writeFileListJson(['1rP76HfShVhHARWH8lXcQFDeFPpQEc5Mm'], "Tableau_Workbook/data/fileList")
+    print('Fretching data completed.')
+
+def writeFileListJson(driveFolderId, folderLocation):
+    result = getDriveFile(50, driveFolderId)
+    fileList = result.get('files')
+    filedict = {}
+    for file in fileList:
+        fileId=file['id']
+        filename = file['name']
+        filedict[filename] = fileId
+
+    if path.isdir(folderLocation) == False:
+            os.mkdir(folderLocation)
+
+    with open(folderLocation + "/fileDict.json", "w") as outfile:
+        json.dump(filedict, outfile)
+
+
 
 # available functions:
+# fretchFileList()
 # uploadDataToDrive("tableau")
 # uploadDataToDrive("api")

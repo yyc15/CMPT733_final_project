@@ -16,4 +16,4 @@ print('Data analysing...')
 analysis()
 print('Data analysis completed.')
 
-upload.uploadDataToDrive('tableau')
+# upload.uploadDataToDrive('tableau')

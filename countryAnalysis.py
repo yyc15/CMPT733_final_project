@@ -81,20 +81,20 @@ def convert_lst(sublist):
     return sublist1
 
 
-def prepare_title_data_Tableau(csv_name, tableau_df_name):
+def prepare_title_data_Tableau(country, csv_name, tableau_df_name):
     df_country = pd.read_csv(f'./Tableau_Workbook/data/{csv_name}.csv')
     df_country['title_lst_processed'] = df_country['title_lst_processed'].apply(lambda x: convert_lst(x))
     country_titles = pd.value_counts(np.hstack(df_country['title_lst_processed'].dropna()))
-    country_title_freq = pd.DataFrame({'US_title_words':country_titles.index, 'counts': country_titles.values})
+    country_title_freq = pd.DataFrame({f'{country}_title_words':country_titles.index, 'counts': country_titles.values})
     country_title_freq.to_csv(f'Tableau_Workbook/data/{tableau_df_name}.csv')
     # upload.uploadDataToDrive('tableau')
 
 
-def prepare_tag_data_Tableau(csv_name, tableau_df_name):
+def prepare_tag_data_Tableau(country, csv_name, tableau_df_name):
     df_country = pd.read_csv(f'./Tableau_Workbook/data/{csv_name}.csv')
     df_country['tags_lst_processed'] = df_country['tags_lst_processed'].dropna().apply(lambda x: convert_lst(x))
     country_tags = pd.value_counts(np.hstack(df_country['tags_lst_processed'].dropna()))
-    country_tags_freq = pd.DataFrame({'US_tag_words':country_tags.index, 'counts': country_tags.values})
+    country_tags_freq = pd.DataFrame({f'{country}_tag_words':country_tags.index, 'counts': country_tags.values})
     country_tags_freq.to_csv(f'Tableau_Workbook/data/{tableau_df_name}.csv') 
     # upload.uploadDataToDrive('tableau')
 
@@ -116,12 +116,12 @@ def analysis():
     title_tags(df_ca, w='ca')
     title_tags(df_gb, w='gb')
 
-    prepare_title_data_Tableau(csv_name='title_tags_us_df', tableau_df_name='US_title_df')
-    prepare_title_data_Tableau(csv_name='title_tags_ca_df', tableau_df_name='CA_title_df')
-    prepare_title_data_Tableau(csv_name='title_tags_gb_df', tableau_df_name='GB_title_df')
+    prepare_title_data_Tableau('US', csv_name='title_tags_us_df', tableau_df_name='US_title_df')
+    prepare_title_data_Tableau('CA', csv_name='title_tags_ca_df', tableau_df_name='CA_title_df')
+    prepare_title_data_Tableau('GB', csv_name='title_tags_gb_df', tableau_df_name='GB_title_df')
 
-    prepare_tag_data_Tableau(csv_name='title_tags_us_df', tableau_df_name='US_tags_df')
-    prepare_tag_data_Tableau(csv_name='title_tags_ca_df', tableau_df_name='CA_tags_df')
-    prepare_tag_data_Tableau(csv_name='title_tags_gb_df', tableau_df_name='GB_tags_df')
+    prepare_tag_data_Tableau('US', csv_name='title_tags_us_df', tableau_df_name='US_tags_df')
+    prepare_tag_data_Tableau('CA', csv_name='title_tags_ca_df', tableau_df_name='CA_tags_df')
+    prepare_tag_data_Tableau('GB', csv_name='title_tags_gb_df', tableau_df_name='GB_tags_df')
 
     upload.uploadDataToDrive('tableau')

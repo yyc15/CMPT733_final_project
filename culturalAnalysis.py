@@ -32,29 +32,29 @@ def analysis():
 
     #all country tags and titles
     text.title_tags(df_all_country, w='all_country')
-    text.prepare_title_data_Tableau(csv_name='title_tags_all_country_df', tableau_df_name='all_country_title_df')
-    text.prepare_tag_data_Tableau(csv_name='title_tags_all_country_df', tableau_df_name='all_country_tags_df')
+    text.prepare_title_data_Tableau(country = 'all', csv_name='title_tags_all_country_df', tableau_df_name='all_country_title_df')
+    text.prepare_tag_data_Tableau(country = 'all', csv_name='title_tags_all_country_df', tableau_df_name='all_country_tags_df')
 
     # similar country
     df_similar_country = df_unique_id[(df_unique_id['trending_country_list']=="['US', 'CA']")]
     df_similar_country.to_csv(r'Tableau_Workbook/data/trending_similar_country.csv')
     text.title_tags(df_similar_country, w='similar_country')
-    text.prepare_title_data_Tableau(csv_name='title_tags_similar_country_df', tableau_df_name='similar_country_title_df')
-    text.prepare_tag_data_Tableau(csv_name='title_tags_similar_country_df', tableau_df_name='similar_country_tags_df')
+    text.prepare_title_data_Tableau(country = 'US_CA',csv_name='title_tags_similar_country_df', tableau_df_name='similar_country_title_df')
+    text.prepare_tag_data_Tableau(country = 'US_CA', csv_name='title_tags_similar_country_df', tableau_df_name='similar_country_tags_df')
 
     # different country
     df_diff_country = df_unique_id[(df_unique_id['trending_country_list']=="['US', 'GB']") | (df_unique_id['trending_country_list']=="['CA', 'GB']")]
     df_diff_country.to_csv(r'Tableau_Workbook/data/trending_different_country.csv')
     df_US_GB_country = df_unique_id[(df_unique_id['trending_country_list']=="['US', 'GB']")]
     text.title_tags(df_US_GB_country, w='us_gb_country')
-    text.prepare_title_data_Tableau(csv_name='title_tags_us_gb_country_df', tableau_df_name='us_gb_country_title_df')
-    text.prepare_tag_data_Tableau(csv_name='title_tags_us_gb_country_df', tableau_df_name='us_gb_country_tags_df')
+    text.prepare_title_data_Tableau(country = 'US_GB', csv_name='title_tags_us_gb_country_df', tableau_df_name='us_gb_country_title_df')
+    text.prepare_tag_data_Tableau(country = 'US_GB', csv_name='title_tags_us_gb_country_df', tableau_df_name='us_gb_country_tags_df')
     df_CA_GB_country = df_unique_id[(df_unique_id['trending_country_list']=="['CA', 'GB']")]
     text.title_tags(df_CA_GB_country, w='ca_gb_country')
-    text.prepare_title_data_Tableau(csv_name='title_tags_ca_gb_country_df', tableau_df_name='ca_gb_country_title_df')
-    text.prepare_tag_data_Tableau(csv_name='title_tags_ca_gb_country_df', tableau_df_name='ca_gb_country_tags_df')
+    text.prepare_title_data_Tableau(country = 'CA_GB', csv_name='title_tags_ca_gb_country_df', tableau_df_name='ca_gb_country_title_df')
+    text.prepare_tag_data_Tableau(country = 'CA_GB', csv_name='title_tags_ca_gb_country_df', tableau_df_name='ca_gb_country_tags_df')
 
     upload.uploadDataToDrive("tableau")
 
-# analysis()
+#analysis()
 

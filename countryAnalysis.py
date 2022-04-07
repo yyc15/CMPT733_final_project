@@ -4,6 +4,7 @@ import uploadYoutubeData as upload
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 import math
@@ -27,10 +28,17 @@ def cat_df(df1, cat_cols = ['category', 'country', 'view_count', 'dislikes', 'li
     # upload.uploadDataToDrive('tableau')
 
 
+lemma = nltk.wordnet.WordNetLemmatizer()
+
 def get_terms(t):
     
     stop_words = set(stopwords.words('english'))
-    porter = PorterStemmer()
+    ###addded###
+    add_stp = ['com', 'www', 'http', 'video', 'short', 'de', 'youtube', 'tiktok']
+    for w in add_stp:
+        stop_words.add(w)
+    ###----###
+    #porter = PorterStemmer()
     words = []
 
     if not isinstance(t, list) and math.isnan(t):
@@ -46,14 +54,17 @@ def get_terms(t):
             split_whitespace = [substr.split() for substr in split_j]
             j_split = functools.reduce(operator.concat, split_whitespace)
             for item in j_split:
+                item = item.lower()
                 if item != '' and len(item) > 1 and item not in stop_words:
                     # deal with emoji
                     if item in UNICODE_EMOJI['en']:
                         words.append('emoji_symbol')
                     else:
                         #stemming
-                        stemmed_i = porter.stem(item)
-                        words.append(stemmed_i.lower())  # now words is a list
+                        #stemmed_i = porter.stem(item)
+                        #lemmatization
+                        stemmed_i = lemma.lemmatize(item)
+                        words.append(stemmed_i)  # now words is a list
     return words
 
 

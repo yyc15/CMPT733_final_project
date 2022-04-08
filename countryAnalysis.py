@@ -14,6 +14,8 @@ import emoji
 from emoji import UNICODE_EMOJI
 import functools
 import operator
+import nltk
+nltk.download('omw-1.4')
 # uncomment for Jupyter notebook
 # from IPython.core.interactiveshell import InteractiveShell
 # InteractiveShell.ast_node_interactivity = "all"

@@ -51,7 +51,8 @@ def changeTimeZone(country, time):
 def analysis():
     #dd.downloadData()
     df = eda.integrate_clean_data()
-
+    if 'tags' in df.columns:
+        df = df.drop(['tags'], axis=1)
     #Analysis from trending date >= 2021-01-01
     df['trending_date'] = df['trending_date'].apply(lambda x: find_number(x))
     df['trending_date'] = pd.to_datetime(df['trending_date'], format='%Y%m%d%H%M%S')

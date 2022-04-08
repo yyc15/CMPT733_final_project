@@ -75,6 +75,9 @@ def integrate_clean_data():
     df_list = [us, ca, gb]
     df = pd.concat(df_list).reset_index(drop=True)
 
+    # drop description
+    df = df.drop(['description'], axis = 'columns')
+    
     # create date and time features
     df['publishDate'] = df['publishedAt'].apply(lambda x: x.date())
     df['publishTime'] = df['publishedAt'].apply(lambda x: x.time())

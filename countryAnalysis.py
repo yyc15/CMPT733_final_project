@@ -138,3 +138,5 @@ def analysis():
     prepare_tag_data_Tableau('GB', csv_name='title_tags_gb_df', tableau_df_name='GB_tags_df')
 
     upload.uploadDataToDrive('tableau')
+
+analysis()

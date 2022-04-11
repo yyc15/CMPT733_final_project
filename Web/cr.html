@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Clustering Result</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {font-family: "Lato", sans-serif}
+.mySlides {display: none}
+</style>
+</head>
+<body>
+
+<div class="w3-top">
+  <div class="w3-bar w3-black w3-card">
+    <a href="index.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="intro.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Introduction</a>
+    <a href="eda.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">EDA</a>
+    <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-padding-large w3-button" title="More">Findings <i class="fa fa-caret-down"></i></button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="tat.html" class="w3-bar-item w3-button">Tags and Titles</a>
+        <a href="pdt.html" class="w3-bar-item w3-button">Publish Date Time</a>
+        <a href="ce.html" class="w3-bar-item w3-button">Common Elements</a>
+      </div>
+    </div>
+    <div class="w3-dropdown-hover w3-hide-small">
+      <button class="w3-padding-large w3-button" title="More">Product <i class="fa fa-caret-down"></i></button>
+      <div class="w3-dropdown-content w3-bar-block w3-card-4">
+        <a href="cr.html" class="w3-bar-item w3-button">Clustering Result</a>
+        <a href="product.html" class="w3-bar-item w3-button">Find out your category</a>
+      </div>
+    </div>
+    <a href="contact.html" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Contact</a>
+  </div>
+</div>
+
+<div class="w3-content" style="max-width:2000px;margin-top:-15px">
+  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px">
+      <h1 style = 'font-family: Avenir Next; color:black; '><b>Modeling Result</b></h1>
+  </div>
+</div>
+
+<div class="float-container" style="position: absolute; top: 100px">
+
+<div class="float-child1">
+  <ul style = 'font-family: Avenir Next; color:grey; font-size:20px;'>
+  <li>    “Difference between trending/published days” represents the number of days it takes the video to become trending. <br>
+“Likes” represent the number of likes in the day when it becomes trending. </li>
+  <li>Cluster 0 trends within 1 day (median) rapidly and outperform others by winning high number of likes (>600 million on average).  <br>
+Cluster 6 shares the similar behavior to trend in 2 days (median) and attract more than 700 million likes on average. </li>
+  <li>The categories in these two clusters are presented in the word cloud. In both clusters, the trending videos belong to the major categories: Entertainment, Gaming, Music, Sports. </li>
+  <li>In the next page of finding, the scope is based on these categories for deeper exploration via text clustering.
+     </li>
+  </ul>
+  <a href="product.html"> <div id="but1" style="position: relative; bottom:50px; left:150px;">Next</div> </a>
+</div>
+
+
+<div class="float-child2">
+  <div style="position: relative; top:0px left: 0px;">
+      <img src="./image/mr.png"/ width="900">
+  </div>
+</div>
+</div>
+
+<div class='centre3' style='position: absolute; top:1000px; font-family: Avenir Next;'>
+  <p>YouTube Trending Video Analysis<br>
+  <a href="https://github.com/yyc15/CMPT733_final_project">https://github.com/yyc15/CMPT733_final_project </a></p>
+</div>
+
+<style>
+
+#nav { width:600px; height: 85px; border: white; position:fixed; bottom:620px; left:1250px; right:0px; border-radius: 25px}
+#but1 { text-align: center; width:150px; height: 30px; border: 2px solid white; color:white; background-color:black; position: absolute; bottom:15px; left: 20px; border-radius: 25px;}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+  box-sizing: border-box;
+}
+
+.float-container {
+    border: white;
+    padding: 20px;
+}
+
+.float-child1 {
+    width: 30%;
+    float: left;
+    padding: 20px;
+    border: white;
+}
+
+.float-child2 {
+    width: 70%;
+    float: left;
+    padding: 20px;
+    border: white;
+}
+
+.centre3 {
+  text-align: center;
+  border: 1px #DED7D0;
+  width: 1500px;
+  background: #DED7D0;
+}
+</style>
+
+</body>
+</html>

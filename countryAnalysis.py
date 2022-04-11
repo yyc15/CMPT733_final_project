@@ -14,6 +14,8 @@ import emoji
 from emoji import UNICODE_EMOJI
 import functools
 import operator
+import nltk
+nltk.download('omw-1.4')
 # uncomment for Jupyter notebook
 # from IPython.core.interactiveshell import InteractiveShell
 # InteractiveShell.ast_node_interactivity = "all"
@@ -136,3 +138,5 @@ def analysis():
     prepare_tag_data_Tableau('GB', csv_name='title_tags_gb_df', tableau_df_name='GB_tags_df')
 
     upload.uploadDataToDrive('tableau')
+
+analysis()

@@ -5,7 +5,7 @@ The data analysis dashboard and online product will try to answer the question w
 
 ### 1. YouTube dataset API
 #### The dataset is updated on demand. Currently the result is from 2021/01/01 to 2022/04/06. 
-Check the folder ‘data’ for the original dataset. 
+Check the folder `data` for the original dataset. 
 
 getYoutubeTrendingVideo.py : Main program for dragging youtube trending list data
 
@@ -43,7 +43,7 @@ Modeling_Clustering_text.py: KMeans clustering method with text mining for a dee
 Go to our [product](https://yt-trending-video-analysis.herokuapp.com/) for a tour of your category of interest. There are also hot videos to view for insparition. 
 
 In order to run the web application on the local computers:
- * Go to ‘Web’ folder.
+ * Go to `Web` folder.
  * Double Click on the index.html.
 
 

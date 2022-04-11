@@ -7,24 +7,29 @@ The data analysis dashboard and online product will try to answer the question w
 The dataset is updated on demand. Currently the result is from 2021/01/01 to 2022/04/06. 
 Check the folder data for the original dataset. 
 
+getYoutubeTrendingVideo.py : Main program for dragging youtube trending list data
+
+dataPipeline.py : Combine with getYoutubeTrendingVideo.py to get api data and combine the eixting data and upload to google drive
+
+Google.py : Google drive setting
+
+Download_Data.py : Download data from google drive
+
 
 ### 2. Exploratory Data Analysis
 #### Before feeding into Tableau:
-contryAnalysis.py
 
-culturalAnalysis.py
 
-dataPipeline.py
+Preprocess_EDA.py :  Process data
 
-Download_Data.py
+publishDatetimeAnalysis.py :  Main program for analysis of publish date time 
 
-getYoutubeTrendingVideo.py
+contryAnalysis.py : Main program for analysis of category, tags and titles
 
-Google.py
+culturalAnalysis.py : Main program for analysis of common elements
 
-publishDatetimeAnalysis.py
+uploadYoutubeData.py : Upload data function
 
-uploadYoutubeData.py
 
 Tableau workbook contains the detailed analysis based on countries and categories. The ready-to-view dashboard is embeded here: https://yt-trending-video-analysis.herokuapp.com/
 

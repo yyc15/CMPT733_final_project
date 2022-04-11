@@ -7,7 +7,7 @@ import re
 import warnings
 warnings.filterwarnings("ignore")
 
-from sklearn.preprocessing import LabelBinarizer
+# from sklearn.preprocessing import LabelBinarizer
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from gensim.models import Word2Vec
@@ -211,5 +211,8 @@ def main(category = all_cat_list, n_cluster = 4):
     data['labels'] = model_list[n_cluster - 2].labels_
     cluster_analysis(data, n_cluster)
 
-# Entertainment, Gaming, Music, Sports, People Blogs
-# main(category = ['People & Blogs'], n_cluster = 4)
+
+if __name__ == '__main__':
+    # choose from the following:
+    # Entertainment, Gaming, Music, Sports, People Blogs
+    main(category = ['People & Blogs'], n_cluster = 4)

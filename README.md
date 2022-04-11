@@ -26,7 +26,7 @@ publishDatetimeAnalysis.py
 
 uploadYoutubeData.py
 
-Tableau workbook contains the detailed analysis based on countries and categories. The ready-to-view dashboard is embeded here: https://trending-video-analysis.herokuapp.com/
+Tableau workbook contains the detailed analysis based on countries and categories. The ready-to-view dashboard is embeded here: https://yt-trending-video-analysis.herokuapp.com/
 
 ### 3. Machine Learning
 Modeling_Clustering_numbers.py: Hierarchical clustering method with numberical & categorical variables to subset the categories. 
@@ -34,7 +34,11 @@ Modeling_Clustering_text.py: KMeans clustering method with text mining for a dee
 
 
 ### 4. How to run the Data Product
-Go to our [web page](https://trending-video-analysis.herokuapp.com/) for a tour of your category of interest. There are also hot videos to view for insparition. 
+Go to our [web page](https://yt-trending-video-analysis.herokuapp.com/) for a tour of your category of interest. There are also hot videos to view for insparition. 
+
+In order to run the web application on the local computers:
+ * (asterisk)Go to ‘Web’ folder.
+ * (asterisk)Double Click on the index.html.
 
 
 ### Credits:

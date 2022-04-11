@@ -3,7 +3,6 @@ from Preprocess_EDA import *
 import matplotlib.pyplot as plt
 import seaborn as sns
 from wordcloud import WordCloud
-import re
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -11,13 +10,6 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from scipy.stats import skew
 
-from collections import defaultdict
-from scipy.spatial.distance import pdist, squareform
-from scipy.cluster.hierarchy import linkage, dendrogram
-from matplotlib.colors import rgb2hex, colorConverter
-from scipy.cluster.hierarchy import set_link_color_palette
-import pandas as pd
-import scipy.cluster.hierarchy as sch
 from sklearn.cluster import AgglomerativeClustering
 import scipy.cluster.hierarchy as shc
 
@@ -143,20 +135,24 @@ def plot_wordcloud(cluster):
     # plt.savefig('wordcloud.png')
     plt.show()
 
-# dendrogram_ytb(linkage = 'ward')
-# dendrogram_ytb(linkage = 'average')
-# dendrogram_ytb(linkage = 'complete')
+def main():
+    dendrogram_ytb(linkage = 'ward')
+    # dendrogram_ytb(linkage = 'average')
+    # dendrogram_ytb(linkage = 'complete')
 
-cluster_num = 7
-linkage = 'ward'
-data_c = agglomerative_clustering(cluster_num, linkage)
+    cluster_num = 7
+    linkage = 'ward'
+    data_c = agglomerative_clustering(cluster_num, linkage)
 
-countplot_cluster()
-scatter_plot()
+    countplot_cluster()
+    scatter_plot()
 
-plot_important_matrices()
+    plot_important_matrices()
 
-for i in range(cluster_num):
-    agcluster = data_c[data_c['ag_cluster'] == i]
-    print('cluster', i)
-    plot_wordcloud(agcluster)
+    for i in range(cluster_num):
+        agcluster = data_c[data_c['ag_cluster'] == i]
+        print('cluster', i)
+        plot_wordcloud(agcluster)
+
+if __name__ == '__main__':
+    main()

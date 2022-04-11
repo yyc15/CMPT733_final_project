@@ -56,3 +56,11 @@ In order to run the web application on the local computers:
 [Zeyu Hu](https://www.linkedin.com/in/zeyu-hu-64322395/)
 
 [Jinyao (Timmy) Lu](https://www.linkedin.com/in/timmyluuu/)
+
+
+#### Reference:
+[appliedaicourse](https://www.appliedaicourse.com/course/11/Applied-Machine-learning-course)
+
+[Deepak-Katchi](https://github.com/Deepak-Katchi/Clustering-YouTube-videos/blob/master/EDA_and_ML_on_YouTube_trending_videos_INDIA.ipynb)
+
+[Food Calorie Classification](https://www.kaggle.com/code/ananyaroy1011/food-calorie-classification)

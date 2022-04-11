@@ -51,7 +51,7 @@ In order to run the web application on the local computers:
 
 [Wei (Joann) Zhang](https://www.linkedin.com/in/joannzhang1818/)
 
-[Yin Yu Kevani Chow](linkedin.com/in/kevanichow/)
+[Yin Yu Kevani Chow](https://www.linkedin.com/in/kevanichow/)
 
 [Zeyu Hu](https://www.linkedin.com/in/zeyu-hu-64322395/)
 

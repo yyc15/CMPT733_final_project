@@ -176,3 +176,5 @@ def getCorrMatrix(country, df):
     result_df['country'] = country
     result_df = result_df.reset_index(drop=True)
     return result_df
+
+analysis()

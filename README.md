@@ -47,12 +47,12 @@ In order to run the web application on the local computers:
 
 
 ### Credits:
-Wanyi Su
+[Wanyi Su](https://www.linkedin.com/in/wanyisu/)
 
-Wei (Joann) Zhang
+[Wei (Joann) Zhang](https://www.linkedin.com/in/joannzhang1818/)
 
-Yin Yu Kevani Chow
+[Yin Yu Kevani Chow](linkedin.com/in/kevanichow/)
 
-Zeyu Hu
+[Zeyu Hu](https://www.linkedin.com/in/zeyu-hu-64322395/)
 
-Jinyao (Timmy) Lu
+[Jinyao (Timmy) Lu](https://www.linkedin.com/in/timmyluuu/)

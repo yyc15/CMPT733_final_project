@@ -37,8 +37,8 @@ Modeling_Clustering_text.py: KMeans clustering method with text mining for a dee
 Go to our [web page](https://yt-trending-video-analysis.herokuapp.com/) for a tour of your category of interest. There are also hot videos to view for insparition. 
 
 In order to run the web application on the local computers:
- * (asterisk)Go to ‘Web’ folder.
- * (asterisk)Double Click on the index.html.
+ * Go to ‘Web’ folder.
+ * Double Click on the index.html.
 
 
 ### Credits:

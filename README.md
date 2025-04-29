@@ -46,6 +46,8 @@ In order to run the web application on the local computers:
  * Go to `Web` folder.
  * Double Click on the index.html.
 
+### 5. Presentation Slides
+https://docs.google.com/presentation/d/1N1brS7H22UxAvdJhIl-IzzncdBdepcR-/edit?usp=drive_link&ouid=112991566302521443721&rtpof=true&sd=true
 
 ### Credits:
 [Wanyi Su](https://www.linkedin.com/in/wanyisu/)
